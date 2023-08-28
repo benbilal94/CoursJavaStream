@@ -10,6 +10,16 @@ public class Emplacement {
     private double prixTotal;
     private boolean estOccupee;
 
+    public Emplacement(int numero, TypeEmplacement typeEmplacement, Taille taille, Occupation occupation, double prixTotal, boolean estOccupee) {
+        this.numero = numero;
+        this.typeEmplacement = typeEmplacement;
+        this.taille = taille;
+        this.occupation = occupation;
+        this.prixTotal = prixTotal;
+        this.estOccupee = estOccupee;
+    }
+
+
     public int getNumero() {
         return numero;
     }
