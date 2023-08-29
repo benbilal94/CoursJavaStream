@@ -32,4 +32,18 @@ public class Occupation {
     public int getNbOccupants() {
         return nbOccupants;
     }
+
+    @Override
+    public String toString() {
+        return "Occupation{" +
+                "id=" + id +
+                ", dateArrivee=" + dateArrivee +
+                ", dateDepart=" + dateDepart +
+                ", nbOccupants=" + nbOccupants +
+                '}';
+    }
+
+    public String toCSVString() {
+        return "{" + id + ";" + dateArrivee + ";" + dateDepart + ";" + nbOccupants + "}";
+    }
 }

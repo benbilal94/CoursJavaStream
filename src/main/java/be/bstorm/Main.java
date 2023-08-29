@@ -1,5 +1,7 @@
 package be.bstorm;
 
+import be.bstorm.exoStream.generateur.GenerateurData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class Main {
 
 //        System.out.println(String.join(",",list2));
 
-
+        GenerateurData.generateurEmplacementRandom(10).forEach(emplacement -> System.out.println((emplacement.toCSVString())));
 
     }
 
