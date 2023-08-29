@@ -36,8 +36,9 @@ public class Main {
 
 //        System.out.println(String.join(",",list2));
 
-        GenerateurData.generateurEmplacementRandom(10).forEach(emplacement -> System.out.println((emplacement.toCSVString())));
+//        GenerateurData.generateurEmplacementRandom(10).forEach(emplacement -> System.out.println((emplacement.toCSVString())));
 
+        GenerateurData.enregistrerEmplacementAleatoires(GenerateurData.generateurEmplacementRandom(10), "emplacements.csv");
     }
 
 }

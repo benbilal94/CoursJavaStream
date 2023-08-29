@@ -5,6 +5,10 @@ import be.bstorm.exoStream.Occupation;
 import be.bstorm.exoStream.Taille;
 import be.bstorm.exoStream.TypeEmplacement;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +29,23 @@ public class GenerateurData {
         }
 
         return output;
+    }
+
+    public static void enregistrerEmplacementAleatoires(List<Emplacement>emplacements,String fileName){
+
+        File fichier = new File(fileName);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fichier))) {
+            emplacements.forEach(e -> {
+                try {
+                    writer.write(e.toCSVString() + "\n");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     private static Emplacement generateurEmplacementRandom() {
