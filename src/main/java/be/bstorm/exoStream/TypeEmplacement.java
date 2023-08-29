@@ -8,6 +8,10 @@ public enum TypeEmplacement {
 
     private double price;
 
+    public double getPrice() {
+        return price;
+    }
+
     TypeEmplacement(double price) {
         this.price = price;
     }

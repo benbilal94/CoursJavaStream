@@ -1,25 +1,37 @@
 package be.bstorm.exoStream;
 
-import java.awt.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 
 public class Emplacement {
+
+    private static int COUNT = 1;
     private int numero;
     private TypeEmplacement typeEmplacement;
     private Taille taille;
-    private Occupation occupation;
-    private double prixTotal;
-    private boolean estOccupee;
+    private List<Occupation> occupationList;
 
-    public Emplacement(int numero, TypeEmplacement typeEmplacement, Taille taille, Occupation occupation, double prixTotal, boolean estOccupee) {
-        this.numero = numero;
+    public Emplacement(TypeEmplacement typeEmplacement, Taille taille, List<Occupation> occupation) {
+        this.numero = COUNT++;
         this.typeEmplacement = typeEmplacement;
         this.taille = taille;
-        this.occupation = occupation;
-        this.prixTotal = prixTotal;
-        this.estOccupee = estOccupee;
+        this.occupationList = occupation;
     }
 
+    public double calculerPrix(){
+        int nombreTotalOccupant = this.occupationList.stream()
+                .map(Occupation::getNbOccupants)
+                .reduce(Integer::sum)
+                .orElse(0);
+        return nombreTotalOccupant * this.typeEmplacement.getPrice();
+    }
 
+    public boolean verifierOccupation(LocalDate dateOccupation){
+        return this.occupationList.stream()
+                .noneMatch(occupation -> (occupation.getDateArrivee().isAfter(dateOccupation) || occupation.getDateArrivee().isEqual(dateOccupation))
+                        && (occupation.getDateDepart().isBefore(dateOccupation) || occupation.getDateDepart().isEqual(dateOccupation)));
+    }
     public int getNumero() {
         return numero;
     }
@@ -32,15 +44,31 @@ public class Emplacement {
         return taille;
     }
 
-    public Occupation getOccupation() {
-        return occupation;
+    public List<Occupation> getOccupationList() {
+        return occupationList;
     }
 
-    public double getPrixTotal() {
-        return prixTotal;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Emplacement that = (Emplacement) o;
+        return numero == that.numero && typeEmplacement == that.typeEmplacement && taille == that.taille && Objects.equals(occupationList, that.occupationList);
     }
 
-    public boolean isEstOccupee() {
-        return estOccupee;
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero, typeEmplacement, taille, occupationList);
+    }
+
+    @Override
+    public String toString() {
+        return "Emplacement{" +
+                "numero=" + numero +
+                ", typeEmplacement=" + typeEmplacement +
+                ", taille=" + taille +
+                ", occupation=" + occupationList +
+                '}';
     }
 }
